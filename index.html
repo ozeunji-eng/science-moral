@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>과학기술 도덕 수호대</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1d2433;--mute:#667085;--line:#e1e5ee;--pri:#4f46e5;--priInk:#fff;--ok:#16a34a;--no:#dc2626;--okbg:#e7f6ec;--nobg:#fdeceb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151f;--card:#1c2130;--ink:#eef1f8;--mute:#a0a9bd;--line:#2d3448;--pri:#8b85ff;--priInk:#12151f;--ok:#4ade80;--no:#f87171;--okbg:#17301f;--nobg:#3a1c1c}}
+:root[data-theme="dark"]{--bg:#12151f;--card:#1c2130;--ink:#eef1f8;--mute:#a0a9bd;--line:#2d3448;--pri:#8b85ff;--priInk:#12151f;--ok:#4ade80;--no:#f87171;--okbg:#17301f;--nobg:#3a1c1c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55}
+#app{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.mute{color:var(--mute);font-size:.92rem}
+.pc{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.pc:first-of-type{border-top:0}
+.pc .i{font-size:1.8rem}
+button{font:inherit;cursor:pointer}
+.go{width:100%;padding:14px;border:0;border-radius:12px;background:var(--pri);color:var(--priInk);font-weight:700;font-size:1.05rem;margin-top:8px}
+.hud{display:flex;justify-content:space-between;align-items:center;font-weight:700;gap:8px;flex-wrap:wrap}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;width:100%;background:var(--pri);transition:width .1s linear}
+.q{font-size:1.1rem;font-weight:600}
+.q b{color:var(--pri);background:var(--line);border-radius:4px;padding:0 3px}
+.tag{display:inline-block;background:var(--line);border-radius:20px;padding:2px 10px;font-size:.8rem;margin-bottom:8px}
+.opt{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:12px 14px;margin:8px 0;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.opt:not(:disabled):hover{border-color:var(--pri)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.no{border-color:var(--no);background:var(--nobg)}
+.fb{border-radius:12px;padding:12px 14px;margin-top:10px}
+.okb{background:var(--okbg)}.nob{background:var(--nobg)}
+.fb p{margin:.4em 0}
+.big{font-size:2.4rem;font-weight:800;text-align:center;margin:0}
+.rv{border-top:1px solid var(--line);padding:10px 0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const P=[
+{i:"🧑‍🤝‍🧑",n:"인권과 인간 존엄성 고려하기",d:"사람의 권리와 존엄을 지켜요."},
+{i:"⚖️",n:"사회 정의 실현과 불평등 해소하기",d:"소외되는 사람 없이 모두가 혜택을 누려요."},
+{i:"🌱",n:"현세대뿐만 아니라 미래 세대까지 고려하기",d:"미래 세대의 몫까지 생각해요."},
+{i:"🚨",n:"새로운 윤리적 쟁점 파악하기",d:"새로 생긴 문제를 미리 경계해요."}];
+const Q=[
+["회사가 <b>동의 없이</b> 사람들의 <b>유전자 정보</b>를 모아 팔았다. <b>신체의 자유가 침해</b>되고 <b>인간을 상업적 도구로 취급</b>하고 있다.",0,"개인의 소중한 정보를 동의 없이 다루는 것은 인권과 인간 존엄성을 침해해요."],
+["AI 카메라가 학생 표정을 <b>감시</b>하고 <b>감정 점수를 공개</b>한다. 학생의 <b>개인정보를 공개하고 사생활을 침해</b>한다.",0,"사람을 감시하고 점수로 드러내는 기술은 사생활과 존엄성을 해칠 수 있어요."],
+["AI가 얼굴만 보고 학생에게 <b>‘문제아’ 낙인</b>을 찍었다. 한 사람의 <b>존엄성이 무시</b>되고 있다.",0,"기술의 판단으로 사람의 가치를 함부로 규정하면 인간 존엄성이 훼손돼요."],
+["전기 없는 마을에 <b>값싼 정수 장치</b>를 보급했다. <b>혜택을 못 누리던 사람들</b>을 위한 기술이다.",1,"적정기술처럼 혜택을 누리지 못하던 사람을 위한 기술은 사회 정의 실현에 도움이 돼요."],
+["예약이 앱으로만 가능해져 <b>어르신들이 이용하지 못한다</b>. 기술을 쓰는 사람과 못 쓰는 사람 사이에 <b>격차</b>가 생긴다.",1,"디지털 격차 때문에 생기는 소외와 불평등을 줄이는 방향을 고민해야 해요."],
+["새 치료법이 너무 <b>비싸서 부자만</b> 받을 수 있다. 기술의 혜택이 <b>일부에게만</b> 돌아간다.",1,"기술의 혜택이 일부에게만 돌아가면 불평등이 커져요. 누구나 누릴 방법이 필요해요."],
+["AI 서버가 자원을 너무 써서 <b>미래에 쓸 자원이 줄고 있다</b>. <b>다음 세대</b>가 쓸 자원이 부족해질 수 있다.",2,"지금의 발전이 미래 세대의 자원과 환경을 앗아가지 않는지 함께 따져야 해요."],
+["편리한 포장재가 <b>수백 년간 쓰레기</b>로 남는다. 지금은 편리하지만 <b>후손들</b>이 계속해서 처리해야 한다.",2,"현세대의 편리함이 미래 세대의 부담이 되지 않도록 신중하게 개발·활용해야 해요."],
+["값싼 에너지 기술이지만 <b>위험한 폐기물이 수천 년</b> 남는다. 폐기물은 <b>미래에 위험을 초래할 수 있다</b>.",2,"미래 세대가 감당할 희생까지 고려하는 것이 바람직한 과학기술의 방향이에요."],
+["<b>드론이 스스로</b> 공격 대상을 정했다. <b>예전에 없던 상황</b>이라 <b>책임을 물을 기준이 없다</b>.",3,"드론 전쟁은 기술과 함께 새로 등장한 문제예요. 기존 윤리로 다루기 어려워 새 기준이 필요해요."],
+["<b>딥페이크</b>로 만든 친구의 가짜 영상이 퍼졌다. 기술이 발전하며 <b>새로 생긴 문제</b>라 예방·해결 방법을 찾아야 한다.",3,"딥페이크 악용은 기술 등장과 함께 생긴 새로운 윤리 문제예요. 예방과 해결책을 고민해야 해요."],
+["해커가 <b>병원 전산망</b>을 마비시켰다. <b>사이버테러</b>는 <b>새 기술과 함께 나타난 위험</b>이라 대비가 필요하다.",3,"사이버테러는 새 기술이 낳은 쟁점이에요. 관심을 갖고 경계하며 대비해야 해요."],
+["AI가 그린 그림, <b>저작권은 누구 것?</b> <b>기존 법과 도덕으로는 판단하기 어려운</b> 문제다.",3,"기존 윤리로 다루기 힘든 문제가 생기면 새로운 기준을 만들어야 해요."]];
+const app=document.getElementById("app");let S,T;
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function home(){app.innerHTML=`<h1>🛡️ 과학기술 도덕 수호대</h1>
+<p class="mute">미래 도시에 새로운 기술이 쏟아지고 있어요. 당신은 과학기술 도덕 심사관! 각 사례에서 <b>고려해야 할 도덕적 방향</b>을 15초 안에 골라 도시의 수명(❤️ 3개)를 지켜 주세요.</p>
+<div class="card">${P.map(p=>`<div class="pc"><span class="i">${p.i}</span><div><b>${p.n}</b><div class="mute">${p.d}</div></div></div>`).join("")}</div>
+<button class="go" onclick="start()">심사 시작하기 ▶</button>`}
+function start(){S={q:sh(Q).slice(0,10),i:0,score:0,life:3,combo:0,best:0,wrong:[],t:15,res:null};draw();tick()}
+function tick(){clearInterval(T);S.t=15;T=setInterval(()=>{S.t-=.1;const b=document.getElementById("b");if(b)b.style.width=Math.max(S.t/15*100,0)+"%";if(S.t<=0)ans(-1)},100)}
+function draw(){const q=S.q[S.i],r=S.res;
+app.innerHTML=`<div class="hud"><span>📋 ${S.i+1}/${S.q.length}</span><span>⭐ ${S.score}</span><span>${"❤️".repeat(S.life)||"💔"}</span><span>🔥 콤보 ${S.combo}</span></div>
+<div class="bar"><i id="b"></i></div>
+<div class="card"><span class="tag">심사 사례 #${S.i+1}</span><div class="q">${q[0]}</div></div>
+<div class="mute">심사 사례가 고려해야 하는 바람직한 방향을 선택하세요!</div>
+${P.map((p,k)=>`<button class="opt ${r?(k===q[1]?"ok":k===r.pick?"no":""):""}" ${r?"disabled":""} onclick="ans(${k})"><span style="font-size:1.5rem">${p.i}</span><span><b>${p.n}</b><br><small class="mute">${p.d}</small></span></button>`).join("")}
+${r?`<div class="fb ${r.ok?"okb":"nob"}"><b>${r.ok?"✅ 정답! +"+r.gain+"점":r.pick<0?"⏰ 시간 초과!":"❌ 아쉬워요!"}</b><p>${q[2]}</p></div><button class="go" onclick="next()">${S.i+1>=S.q.length||S.life<=0?"결과 보기 🏁":"다음 사례 ▶"}</button>`:""}`}
+function ans(k){if(S.res)return;clearInterval(T);const q=S.q[S.i],ok=k===q[1];let gain=0;
+if(ok){S.combo++;S.best=Math.max(S.best,S.combo);gain=100+Math.min(S.combo-1,5)*20+Math.round(S.t*4);S.score+=gain}
+else{S.life--;S.combo=0;S.wrong.push(q)}
+S.res={ok,pick:k,gain};draw()}
+function next(){S.i++;S.res=null;if(S.i>=S.q.length||S.life<=0)return end();draw();tick()}
+function end(){clearInterval(T);const s=S.score,rk=s>=1100?"🏆 과학기술 도덕 수호 대장":s>=700?"🥇 도덕 파수꾼":s>=350?"🥈 도덕 견습생":"🌱 도덕 새싹";
+app.innerHTML=`<div class="card"><p class="mute" style="text-align:center">${S.life<=0?"도시의 수명이 모두 사라졌어요 💔":"모든 심사를 마쳤어요 🎉"}</p>
+<p class="big">${rk}</p><p style="text-align:center;margin:.4em 0">점수 <b>${s}</b>점 · 최고 콤보 <b>${S.best}</b></p></div>
+<div class="card"><b>📝 다시 보기</b>${S.wrong.length?S.wrong.map(q=>`<div class="rv"><div>${q[0]}</div><div><b>정답: ${P[q[1]].i} ${P[q[1]].n}</b></div><div class="mute">${q[2]}</div></div>`).join(""):`<p>틀린 문제가 없어요! 완벽한 심사였어요 👏</p>`}</div>
+<button class="go" onclick="start()">다시 도전 🔄</button><button class="go" style="background:var(--line);color:var(--ink)" onclick="home()">처음으로</button>`}
+home();
+</script>
+</body>
+</html>
